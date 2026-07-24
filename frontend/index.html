@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Fuzzle - A Boggle clone for the browser</title>
+	<link rel="stylesheet" href="css.css">
+</head>
+
+<body>
+	<div id="board"></div>
+	<div id=status></div>
+	<div id="game-select">
+		<select id="game-type">
+			<option value="blitz">vs. Time</option>
+			<option value="solver">vs. Bot</option>
+			<option value="invite" disabled>vs. Friends (soon!)</option>
+			<option value="multi" disabled>vs. Strangers (soon!)</option>
+		</select>
+		<p>Board size: <input id="board-size" type="number" min="4" max="6" value="4" /></p>
+		<button id="expand-rules">Rules (expand)</button>
+		<div id="rules-div">
+			<p>Time (in seconds): <input id='rule-timelimit' type="number" min="1" value="30" /></p>
+			<p>Wildcard tiles: <input id="rule-wildcard" type="checkbox" /></p>
+			<p>Minimum word length: <input id="rule-minlength" type="number" min="1" max="6" value="3" /></p>
+		</div>
+		<button id="start-game">Start Game</button>
+	</div>
+
+	<script src="util.js"></script>
+	<script src="board.js"></script>
+	<script src="game.js"></script>
+	<script src="solver.js"></script>
+	<script src="ui.js"></script>
+</body>
+
+</html>
