@@ -8,7 +8,7 @@ Meanwhile this one is fully free to play, no ads, and you can even play with a b
 ## How to Use
 
 You can either download this repository and open [`/frontend/index.html`](/frontend/index.html),
-or simply open it by going to [the Vercel-deployed page](https://fuzzle-game.vercel.app/).
+or simply by going to [the Vercel-deployed page](https://fuzzle-game.vercel.app/).
 
 ## Repository Structure
 
