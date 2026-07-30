@@ -44,22 +44,22 @@ function delay(ms) {
 }
 
 // words & word frequencies
-const wordListURL =
-	"https://raw.githubusercontent.com/dwyl/english-words/refs/heads/master/words_alpha.txt";
+const wordListURL = `${location.origin}/words_freq.txt`;
 async function getWordList() {
 	const r = await fetch(wordListURL);
 	const wordsString = await r.text();
-	const words = wordsString.split("\n");
-	const uppercaseWords = words.map((v) => v.toUpperCase().trim());
-	return uppercaseWords;
+	const words = wordsString
+		.split("\n")
+		.sort((a, b) => a.localeCompare(b))
+		.map((word) => word.toUpperCase().trim());
+	return words;
 }
-
-const wordFrequencyListURL =
-	"https://raw.githubusercontent.com/first20hours/google-10000-english/refs/heads/master/google-10000-english.txt";
 async function getWordFrequencyList() {
-	const r = await fetch(wordFrequencyListURL);
+	const r = await fetch(wordListURL);
 	const listString = await r.text();
-	const list = listString.split('\n').map(word => word.trim().toUpperCase());
+	const list = listString
+		.split("\n")
+		.map((word) => word.trim().toUpperCase());
 	return list;
 }
 async function getWordFrequency(word) {
@@ -67,6 +67,17 @@ async function getWordFrequency(word) {
 	if (wordFrequencies.includes(word))
 		// return frequency as a number in the harmonic series for easy comparison
 		// this also obeys Zipf's law, which word frequencies also obey
-		return 1/(wordFrequencies.indexOf(word) + 1); 
+		return 1 / (wordFrequencies.indexOf(word) + 1);
 	else return Infinity;
+}
+async function getRandomWordByFrequency() {
+	const wordList = await getWordFrequencyList();
+	const random = Math.random() + 1;
+	const getProbabilityOfIndex = (index) => {
+		return 1 / Math.round(random * wordList.length + 1);
+	};
+	let targetIndex = 0;
+	while (getProbabilityOfIndex(targetIndex) > random) targetIndex++;
+	const word = wordList[targetIndex];
+	return word;
 }

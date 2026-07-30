@@ -1,4 +1,4 @@
-class BoggleSolver {
+class NerfedBoggleSolver {
 	constructor(words) {
 		this.validWords = words;
 	}
