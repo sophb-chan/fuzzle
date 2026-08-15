@@ -10,7 +10,7 @@ class BoggleSolver {
 		board,
 		rules,
 		callbacks = {
-			spellCallback: () => {},
+			spellCallback: () => { },
 		},
 	) {
 		// neighbor helpers
@@ -71,6 +71,7 @@ class BoggleSolver {
 			tileIndex,
 			tile,
 			travelled = [],
+			candidateWords = this.validWords
 		} = {}) => {
 			await this.yieldToBrowser();
 
@@ -98,11 +99,11 @@ class BoggleSolver {
 			*/
 
 			// there are no words with this prefix, so it's no use searching deeper
-			if (this.validWords.every((word) => !prefixRegex.test(word)))
+			if (candidateWords.every((word) => !prefixRegex.test(word)))
 				return;
 
 			// check if any word passes the regex test and report back
-			const wordsFound = this.validWords.filter(
+			const wordsFound = candidateWords.filter(
 				(word) =>
 					matchRegex.test(word) &&
 					!foundWords.includes(word) &&
@@ -116,6 +117,7 @@ class BoggleSolver {
 					foundWords.push(wordFound);
 				}
 			}
+			candidateWords = candidateWords.filter((word) => prefixRegex.test(word));
 
 			// search deeper
 			for (const [neighborIndex, neighborTile] of neighbors.entries()) {
@@ -126,6 +128,7 @@ class BoggleSolver {
 					tileIndex: neighborTile,
 					tile: board[neighborTile],
 					travelled: [...travelled],
+					candidateWords
 				});
 			}
 		};
